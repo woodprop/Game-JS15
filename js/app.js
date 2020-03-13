@@ -13,6 +13,73 @@
 
 
 
+// ---------- EVENTS ----------
+
+    game.addEventListener('click', onBoxClickHandler);
+
+
+
+
+
+
+
+    function onBoxClickHandler({target}) {
+        getSiblings(target);
+    }
+
+
+
+    function getSiblings(box) {
+        let siblings = [];
+        const boxNum = parseInt(box.dataset['fieldNumber']);
+        const firstColumn = [];
+        const lastColumn = [];
+        (fs => {
+            for (let i = 1; i < Math.pow(fs, 2); i += fs) firstColumn.push(i);
+        })(fieldSize);
+
+        (fs => {
+            for (let i = fs; i <= Math.pow(fs, 2); i += fs) lastColumn.push(i);
+        })(fieldSize);
+
+
+
+        siblings.push(boxNum - 1);
+        siblings.push(boxNum + 1);
+        siblings.push(boxNum - fieldSize);
+        siblings.push(boxNum + fieldSize);
+
+        // 1st row
+        if (boxNum <= fieldSize) {
+            siblings = siblings.filter(s => {
+                return s !== boxNum - fieldSize;
+            });
+        }
+        // last row
+        if (boxNum > (Math.pow(fieldSize, 2) - fieldSize)) {
+            siblings = siblings.filter(s => {
+                return s !== boxNum + fieldSize;
+            });
+        }
+        // 1st column
+        if (firstColumn.indexOf(boxNum) !== -1) {
+            siblings = siblings.filter(s => {
+                return s !== boxNum - 1;
+            });
+        }
+        // last column
+        if (lastColumn.indexOf(boxNum) !== -1) {
+            siblings = siblings.filter(s => {
+                return s !== boxNum + 1;
+            });
+        }
+
+
+
+
+        console.log(siblings);
+    }
+
 
 
 
@@ -62,7 +129,6 @@
                 return;
             }
             box.textContent = num;
-            console.log(num, box);
         });
     }
 
