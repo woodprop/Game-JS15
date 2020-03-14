@@ -1,14 +1,15 @@
 (function () {
 
-    const fieldSize = 3;
+    const fieldSize = 2;
 
 // ---------- ELEMENTS ----------
     const game = document.querySelector('.game-wrapper');
 
 
+// ---------- INITIALIZATION ----------
     game.appendChild(buildGameField());
     generateStartPosition();
-
+// ------------------------------------
 
 
 
@@ -23,7 +24,7 @@
         const emptyBox = getEmptySibling(target);
         if (emptyBox) {
             swapBoxes(target, emptyBox);
-            setTimeout(checkWin);
+            if (checkWin()) setTimeout(win);
         }
 
     }
@@ -36,9 +37,14 @@
            if (box.dataset['value'] === '0') return;
            if (box.dataset['fieldNumber'] === box.textContent) countCorrect++;
         });
-        if (countCorrect === Math.pow(fieldSize, 2) - 1) alert('YOU WIN!');
+        return countCorrect === Math.pow(fieldSize, 2) - 1;
+
     }
 
+
+    function win() {
+        alert('YOU WIN!');
+    }
 
 
     function swapBoxes(clicked, empty) {
@@ -158,15 +164,6 @@
         }
         return a;
     }
-
-
-
-
-
-
-
-
-
 
 
 
