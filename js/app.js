@@ -17,20 +17,25 @@
 
     game.addEventListener('click', onBoxClickHandler);
 
-
-
-
-
 // ---------- FUNCTIONS ----------
 
     function onBoxClickHandler({target}) {
         const emptyBox = getEmptySibling(target);
-        console.log(emptyBox);
+        if (emptyBox) {
+            swapBoxes(target, emptyBox);
+        }
+
     }
 
 
-
-
+    function swapBoxes(clicked, empty) {
+        clicked.classList.toggle('empty');
+        empty.classList.toggle('empty');
+        empty.textContent = clicked.textContent;
+        clicked.textContent = '';
+        empty.dataset['value'] = clicked.dataset['value'];
+        clicked.dataset['value'] = '0';
+    }
 
 
     function getEmptySibling(box) {
@@ -80,9 +85,6 @@
         return emptyBox;
         // console.log(siblings);
     }
-
-
-
 
 
 
