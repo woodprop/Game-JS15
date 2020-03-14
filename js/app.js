@@ -1,6 +1,6 @@
 (function () {
 
-    const fieldSize = 4;
+    const fieldSize = 3;
 
 // ---------- ELEMENTS ----------
     const game = document.querySelector('.game-wrapper');
@@ -23,9 +23,22 @@
         const emptyBox = getEmptySibling(target);
         if (emptyBox) {
             swapBoxes(target, emptyBox);
+            setTimeout(checkWin);
         }
 
     }
+
+
+    function checkWin() {
+        let countCorrect = 0;
+        let boxes = document.querySelectorAll('.field-box');
+        boxes.forEach(box => {
+           if (box.dataset['value'] === '0') return;
+           if (box.dataset['fieldNumber'] === box.textContent) countCorrect++;
+        });
+        if (countCorrect === Math.pow(fieldSize, 2) - 1) alert('YOU WIN!');
+    }
+
 
 
     function swapBoxes(clicked, empty) {
