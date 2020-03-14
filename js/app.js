@@ -21,63 +21,64 @@
 
 
 
-
+// ---------- FUNCTIONS ----------
 
     function onBoxClickHandler({target}) {
-        getSiblings(target);
+        const emptyBox = getEmptySibling(target);
+        console.log(emptyBox);
     }
 
 
 
-    function getSiblings(box) {
+
+
+
+    function getEmptySibling(box) {
         let siblings = [];
         const boxNum = parseInt(box.dataset['fieldNumber']);
         const firstColumn = [];
         const lastColumn = [];
-        (fs => {
-            for (let i = 1; i < Math.pow(fs, 2); i += fs) firstColumn.push(i);
-        })(fieldSize);
-
-        (fs => {
-            for (let i = fs; i <= Math.pow(fs, 2); i += fs) lastColumn.push(i);
-        })(fieldSize);
-
-
+        for (let i = 1; i < Math.pow(fieldSize, 2); i += fieldSize) firstColumn.push(i);
+        for (let i = fieldSize; i <= Math.pow(fieldSize, 2); i += fieldSize) lastColumn.push(i);
 
         siblings.push(boxNum - 1);
         siblings.push(boxNum + 1);
         siblings.push(boxNum - fieldSize);
         siblings.push(boxNum + fieldSize);
 
-        // 1st row
+        // If 1st row
         if (boxNum <= fieldSize) {
             siblings = siblings.filter(s => {
                 return s !== boxNum - fieldSize;
             });
         }
-        // last row
+        // If last row
         if (boxNum > (Math.pow(fieldSize, 2) - fieldSize)) {
             siblings = siblings.filter(s => {
                 return s !== boxNum + fieldSize;
             });
         }
-        // 1st column
+        // If 1st column
         if (firstColumn.indexOf(boxNum) !== -1) {
             siblings = siblings.filter(s => {
                 return s !== boxNum - 1;
             });
         }
-        // last column
+        // If last column
         if (lastColumn.indexOf(boxNum) !== -1) {
             siblings = siblings.filter(s => {
                 return s !== boxNum + 1;
             });
         }
 
+        let emptyBox = false;
+        siblings.forEach(s => {
+           const box = document.querySelector(`.field-box[data-field-number="${s}"]`);
+           if (box.classList.contains('empty')) emptyBox = box;
+        });
 
-
-
-        console.log(siblings);
+        return emptyBox;
+        // console.log(siblings);
     }
 
 
