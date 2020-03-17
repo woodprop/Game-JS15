@@ -12,9 +12,17 @@
     align-items: center;
 }
 
+.start-menu {
+    display: none;
+}
+
 .game-wrapper {
-    display: block;
+    display: none;
     cursor: pointer;
+}
+
+.active {
+    display: block;
 }
 
 .field-row {

@@ -1,24 +1,29 @@
 (function () {
 
-    const fieldSize = 2;
+    let fieldSize = 2;
 
 // ---------- ELEMENTS ----------
+    const startMenu = document.querySelector('.start-menu');
+    const fieldSizeInput = document.querySelector('#fieldSizeSelect');
+    const startButton = document.querySelector('.game-start-btn');
     const game = document.querySelector('.game-wrapper');
-
-
-// ---------- INITIALIZATION ----------
-    game.appendChild(buildGameField());
-    generateStartPosition();
-// ------------------------------------
-
-
 
 
 // ---------- EVENTS ----------
 
+    startButton.addEventListener('click', gameStart);
     game.addEventListener('click', onBoxClickHandler);
 
 // ---------- FUNCTIONS ----------
+
+    function gameStart() {
+        fieldSize = +fieldSizeInput.value;
+        startMenu.classList.toggle('active');
+        game.classList.toggle('active');
+        game.appendChild(buildGameField());
+        generateStartPosition();
+    }
+
 
     function onBoxClickHandler({target}) {
         const emptyBox = getEmptySibling(target);
