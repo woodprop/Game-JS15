@@ -4,6 +4,8 @@
 
 // ---------- ELEMENTS ----------
     const startMenu = document.querySelector('.start-menu');
+    const winDialog = document.querySelector('.win-dialog');
+    const resetButton = document.querySelector('.btn-reset');
     const fieldSizeInput = document.querySelector('#fieldSizeSelect');
     const startButton = document.querySelector('.game-start-btn');
     const game = document.querySelector('.game-wrapper');
@@ -12,7 +14,9 @@
 // ---------- EVENTS ----------
 
     startButton.addEventListener('click', gameStart);
+    resetButton.addEventListener('click', gameReset);
     game.addEventListener('click', onBoxClickHandler);
+
 
 // ---------- FUNCTIONS ----------
 
@@ -22,6 +26,12 @@
         game.classList.toggle('active');
         game.appendChild(buildGameField());
         generateStartPosition();
+    }
+
+
+    function gameReset() {
+        winDialog.classList.toggle('active');
+        startMenu.classList.toggle('active');
     }
 
 
@@ -48,7 +58,9 @@
 
 
     function win() {
-        alert('YOU WIN!');
+        game.innerHTML = '';
+        game.classList.toggle('active');
+        winDialog.classList.toggle('active');
     }
 
 

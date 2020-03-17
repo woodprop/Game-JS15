@@ -21,6 +21,11 @@
     cursor: pointer;
 }
 
+.win-dialog {
+    display: none;
+    text-align: center;
+}
+
 .active {
     display: block;
 }
